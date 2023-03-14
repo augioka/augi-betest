@@ -2,8 +2,8 @@ import User from '../models/user.model.js';
 
 const defaultProjection = { _id: 0, __v: 0 };
 
-export const getUserBy = async () => {
-  return User.find({}, defaultProjection);
+export const getUserBy = async (filter) => {
+  return User.find(filter, defaultProjection);
 };
 
 export const getByUserId = async (userId) => {

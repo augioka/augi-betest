@@ -1,43 +1,82 @@
 import * as userService from '../services/user.service.js';
-export const createUser = async (req, res) => {
-  let userFound;
+
+export const getUserByAccountNumber = async (req, res) => {
   try {
-    userFound = await userService.getUserBy({
-      emailAddress: req.body.emailAddress,
+    const result = await userService.getUserBy({
+      accountNumber: req.params.id,
     });
+    return res.status(200).json({ result });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
       result: [{ field: null, message: 'Something Wrong Getting User' }],
     });
   }
+};
 
-  if (userFound.length > 0) {
-    return res.status(400).json({
-      result: [
-        { field: 'emailAddress', message: 'Email Address Already Used' },
-      ],
-    });
-  }
-
-  let user;
+export const getUserByRegistrationNumber = async (req, res) => {
   try {
-    user = await userService.createUser(req.body);
-    return res.status(200).json({ result: user });
+    const result = await userService.getUserBy({
+      registrationNumber: req.params.id,
+    });
+    return res.status(200).json({ result });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      result: [{ field: null, message: 'Something Wrong Saving User' }],
+      result: [{ field: null, message: 'Something Wrong Getting User' }],
     });
   }
 };
 
 export const getAll = async (req, res) => {
-  let user;
   try {
-    user = await userService.getUserBy();
+    const result = await userService.getUserBy();
+    return res.status(200).json({ result });
   } catch (error) {
-    res.send(error);
+    console.error(error);
+    return res.status(500).json({
+      result: [{ field: null, message: 'Something Wrong Getting User' }],
+    });
   }
-  res.send(user);
+};
+
+export const createUser = async (req, res) => {
+  try {
+    const result = await userService.createUser(req.body);
+    return res.status(200).json({ result });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      result: [{ field: null, message: 'Something Wrong Creating User' }],
+    });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  const { __v, userId, ...updatedData } = req.body;
+
+  try {
+    const result = await userService.updateByUserId(
+      req.params.userId,
+      updatedData,
+    );
+    return res.status(200).json({ result });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      result: [{ field: null, message: 'Something Wrong Updating User' }],
+    });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const result = await userService.deleteByUserId(req.params.userId);
+    return res.status(200).json({ result });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      result: [{ field: null, message: 'Something Wrong Deleting User' }],
+    });
+  }
 };

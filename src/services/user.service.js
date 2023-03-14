@@ -6,8 +6,8 @@ export const getUserBy = async (filter) => {
   return User.find(filter, defaultProjection);
 };
 
-export const getByUserId = async (userId) => {
-  return User.findOne({ userId }, defaultProjection);
+export const getOneUserBy = async (filter) => {
+  return User.findOne(filter, defaultProjection);
 };
 
 export const createUser = async (userData) => {

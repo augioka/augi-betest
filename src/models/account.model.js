@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const accountSchema = mongoose.Schema({
   accountId: {
     type: String,
+    immutable: true,
     unique: true,
     default: uuidv4(),
   },

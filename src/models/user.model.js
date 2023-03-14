@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const userSchema = mongoose.Schema({
   userId: {
     type: String,
+    immutable: true,
     unique: true,
     default: uuidv4(),
   },

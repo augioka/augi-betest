@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const accountSchema = mongoose.Schema({
   accountId: {
@@ -9,6 +10,7 @@ const accountSchema = mongoose.Schema({
   },
   userName: {
     type: String,
+    unique: true,
     required: true,
   },
   password: {
@@ -17,9 +19,12 @@ const accountSchema = mongoose.Schema({
   },
   lastLoginDateTime: {
     type: Date,
+    default: Date.now(),
   },
   userId: {
     type: String,
+    unique: true,
+    immutable: true,
     ref: 'User',
     required: true,
   },

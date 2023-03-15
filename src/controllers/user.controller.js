@@ -43,7 +43,8 @@ export const getAll = async (req, res) => {
 export const createUser = async (req, res) => {
   try {
     const result = await userService.createUser(req.body);
-    return res.status(200).json({ result });
+    const { _id, __v, password, ...filteredResult } = result._doc;
+    return res.status(200).json({ result: filteredResult });
   } catch (error) {
     console.error(error);
     return res.status(500).json({

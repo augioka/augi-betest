@@ -5,7 +5,7 @@ import { validate } from '../middlewares/validations/validate.js';
 
 const router = Router();
 
-router.get(
+router.post(
   '/login',
   authValidator.loginRules(),
   validate,

@@ -28,7 +28,23 @@ const verifyToken = async (authHeader, { req }) => {
     }
     req.headers.user = payload;
   } catch (error) {
-    console.error(error);
-    return Promise.reject('Something Wrong Checking Token');
+    let message = null;
+    switch (error.name) {
+      case 'TokenExpiredError':
+        console.error(error.name);
+        message = 'Token Expired';
+        break;
+
+      case 'JsonWebTokenError':
+        console.error(error.name);
+        message = 'Invalid Token';
+        break;
+
+      default:
+        console.error(error.name);
+        message = 'Something Wrong Checking Token';
+        break;
+    }
+    return Promise.reject(message);
   }
 };

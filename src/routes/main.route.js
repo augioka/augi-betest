@@ -9,7 +9,7 @@ import { requireAuth } from '../middlewares/authorization/check.auth.js';
 const router = Router();
 
 router.use('/users', requireAuth(), validate, userRouter);
-router.use('/account', requireAuth(), validate, accountRouter);
+router.use('/accounts', requireAuth(), validate, accountRouter);
 router.use('/auth', authRouter);
 
 export default router;

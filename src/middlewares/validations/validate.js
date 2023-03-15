@@ -10,7 +10,12 @@ const formatError = ({ param, msg }) => {
 export const validate = (req, res, next) => {
   const errors = validationResult(req).formatWith(formatError);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ result: errors.array() });
+    if (errors.mapped().authorization) {
+      res.status(401);
+    } else {
+      res.status(400);
+    }
+    return res.json({ result: errors.array() });
   }
 
   return next();

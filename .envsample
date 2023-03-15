@@ -1,0 +1,17 @@
+# appport
+PORT=5000
+
+MONGO_URI=mongodb://localhost:27017/db_augi_betest
+
+# bcrypt
+SALT_ROUNDS=10
+
+# jwt access token expiraton jwt syntax
+ACCESS_TOKEN_EXPIRED=30m
+
+# symmetric key for the moment
+SECRET=CXbqozGwP99j8X5O
+
+# kafka broker, single broker for now
+BROKER=localhost:9092
+USER_TOPIC=kafka_augi_betest
